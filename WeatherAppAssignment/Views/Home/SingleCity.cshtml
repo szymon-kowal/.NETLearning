@@ -1,0 +1,34 @@
+﻿@model CityWeather
+
+@{
+    CityWeather cityWeather = Model;
+}
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Weather Information</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="/CSS/StyleSheet.css" />
+</head>
+<body class="full-size-height">
+    <div class="header">
+        <h1>City Weather Report</h1>
+    </div>
+    <div class="container page-content flex">
+        @{
+            <div class="box">
+                <h2 class="text-dark-grey">@cityWeather.CityName (@cityWeather.CityUniqueCode)</h2>
+                <p>Date and Time: <span class="text-grey">@cityWeather.DateAndTime.ToString("g")</span></p>
+                <p>Temperature: <span class="text-blue">@cityWeather.TemperatureFahrenheit°F</span></p>
+                <a href="/">Go back to Home Page</a>
+            </div>
+        }
+    </div>
+    <div class="footer-content">
+        <p>Weather data provided by the WeatherApp</p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,44 @@
+﻿@model IList<CityWeather>
+
+@{
+	IList<CityWeather> listOfCityWeathers = Model;
+}
+
+@functions {
+    public string GetBackgroundCSSColorFromFahrenheitTemperature(int temperature) {
+        if (temperature < 44) {
+            return "blue-back";
+        } else if (temperature < 74) {
+            return "green-back";
+        } else {
+            return "orange-back";
+        }
+    }
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Weather Information</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="./CSS/StyleSheet.css" />
+</head>
+<body>
+    <div class="header">
+        <h1>City Weather Report</h1>
+    </div>
+    <div class="container page-content flex">
+        @foreach (var cityWeather in listOfCityWeathers) {
+            <div class="box  @GetBackgroundCSSColorFromFahrenheitTemperature(cityWeather.TemperatureFahrenheit)">
+                <h2 class="text-dark-grey">@cityWeather.CityName (@cityWeather.CityUniqueCode)</h2>
+                <p>Date and Time: <span class="text-grey">@cityWeather.DateAndTime.ToString("g")</span></p>
+                <p>Temperature: <span class="text-blue">@cityWeather.TemperatureFahrenheit°F</span></p>
+                <a href="weather/@cityWeather.CityUniqueCode">View Details</a>
+            </div>
+        }
+    </div>
+    <div class="footer-content">
+        <p>Weather data provided by the WeatherApp</p>
+    </div>
+</body>
+</html>
