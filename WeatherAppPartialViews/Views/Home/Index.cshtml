@@ -1,0 +1,10 @@
+﻿@model IList<CityWeather>
+
+@{
+	IList<CityWeather> listOfWeathers = Model;
+}
+
+<h2> All city weathers</h2>
+@foreach (CityWeather cityWeather in listOfWeathers) {
+	@await Html.PartialAsync("_PartialView", cityWeather);
+}
