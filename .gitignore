@@ -1,0 +1,29 @@
+# Ignore the build output directories
+bin/
+obj/
+
+# Ignore files that can be regenerated
+*.user
+*.suo
+*.userprefs
+
+# Ignore the packages folder
+packages/
+
+# Ignore the VS temporary files
+*.[Oo]bj
+*.[Cc]ache
+*.[Cc]sproj.Files.xml
+*.[Pp]ublish.xml
+*.[Vv]spscc
+
+# Ignore other files that should not be committed.
+*.log
+*.vs/
+*.nupkg
+
+# Exclude .NET Core build directories
+**/bin/
+**/obj/
+**/[Dd]ebug/
+**/[Rr]elease/
