@@ -1,0 +1,10 @@
+﻿@{
+	List<CityWeather> cityWeatherList = Model;
+}
+
+<h1>Index</h1>
+@{
+	foreach (CityWeather cityWeather in cityWeatherList) {
+		<h4>@cityWeather.CityName</h4>
+	}
+}
