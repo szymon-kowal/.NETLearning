@@ -1,0 +1,7 @@
+﻿@model IEnumerable<CityWeather>
+
+<h3>This is from index view</h3>
+
+@foreach (CityWeather cityWeather in Model) {
+	@await Component.InvokeAsync("City", new { cityWeather = cityWeather})
+}

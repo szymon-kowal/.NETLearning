@@ -1,0 +1,5 @@
+﻿@model CityWeather
+<h3>Weather Single city</h3>
+@await Component.InvokeAsync("City", new {
+		cityWeather = Model
+	})
