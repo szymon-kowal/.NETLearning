@@ -1,0 +1,6 @@
+﻿@model List<CityWeather>
+
+<h1>Index Controller</h1>
+@foreach (CityWeather cityWeather in Model) {
+	@await Html.PartialAsync("~/Views/Home/_SingleCityWeatherPartial.cshtml", cityWeather)
+}
