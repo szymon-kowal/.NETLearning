@@ -1,0 +1,8 @@
+﻿@model CityWeather
+
+<div>
+    <strong>City:</strong> @Model.CityName <br />
+    <strong>Code:</strong> @Model.CityUniqueCode <br />
+    <strong>Temperature:</strong> @Model.TemperatureFahrenheit°F <br />
+    <strong>Date and Time:</strong> @Model.DateAndTime.ToString("g")
+</div>
