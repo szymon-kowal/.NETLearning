@@ -1,0 +1,74 @@
+﻿@model StocksAppWithConfiguration.Models.StockTrade
+
+<div class="box trading-panel">
+	<div class="flex trading-panel-flex">
+		<div id="stock-price-panel">
+			<div class="stock">
+				<h1 class="stock-title">@Model.StockSymbol</h1>
+				<table>
+					<tbody>
+						<tr>
+							<td>Stock symbol :</td>
+							<th>@Model.StockSymbol</th>
+						</tr>
+						<tr>
+							<td>Stock name:</td>
+							<th>@Model.StockName</th>
+						</tr>
+						<tr>
+							<td>Current Price :</td>
+							<th id="currentPrice">@Model.Price.ToString("N") <small>$</small></th>
+						</tr>
+						<tr>
+							<td>Shares ? :</td>
+							<th>@Model.Quantity.ToString("N")</th>
+						</tr>
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="tokenHolder" data-token="@ViewBag.Key" style="display: none;"></div>
+<div id="StockSymbol" data-token="@Model.StockSymbol" style="display: none;"></div>
+
+<script>
+    const token = document.getElementById('tokenHolder').getAttribute('data-token');
+    const socket = new WebSocket(`wss://ws.finnhub.io?token=${token}`);
+    var stockSymbol = document.getElementById("StockSymbol").getAttribute('data-token'); // Get symbol from input hidden
+
+    // Connection opened. Subscribe to a symbol
+    socket.addEventListener('open', function (event) {
+        socket.send(JSON.stringify({ 'type': 'subscribe', 'symbol': stockSymbol }));
+    });
+
+    // Listen (ready to receive) for messages
+    socket.addEventListener('message', function (event) {
+        var eventData = JSON.parse(event.data);
+
+        // If error message is received from server
+        if (eventData.type == "error") {
+            document.querySelector("#currentPrice").textContent(eventData.msg);
+            return; 
+        }
+
+
+        if (eventData && eventData.data) {
+            var updatedPrice = eventData.data[0].p;
+            document.querySelector("#currentPrice").textContent = updatedPrice.toFixed(2) + ' $';
+        }
+    });
+
+    // Unsubscribe
+    var unsubscribe = function (symbol) {
+        // Disconnect from server
+        socket.send(JSON.stringify({ 'type': 'unsubscribe', 'symbol': symbol }));
+    }
+
+    // When the page is being closed, unsubscribe from the WebSocket
+    window.onunload = function () {
+        unsubscribe(stockSymbol);
+    };
+</script>
